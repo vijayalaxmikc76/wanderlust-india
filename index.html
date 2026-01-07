@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wanderlust India - Premium Travel Guide</title>
+
+    <!-- Tailwind CSS (CDN for instant usage) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0F766E',
+                        accent: '#F97316',
+                    },
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts: Space Grotesk (Modern Display) + Inter (Clean Body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Backend Logic -->
+    <script src="database.js"></script>
+    <script src="auth.js"></script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body class="bg-gray-50 min-h-screen flex flex-col">
+
+    <!-- Navbar -->
+    <nav class="fixed top-0 w-full z-50 glass transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <!-- Logo -->
+                <div class="flex items-center gap-2 cursor-pointer" onclick="navigateTo('home')">
+                    <div class="bg-gradient-to-tr from-orange-500 to-yellow-500 p-2 rounded-lg text-white">
+                        <i data-lucide="compass" class="w-6 h-6"></i>
+                    </div>
+                    <span class="text-2xl font-bold font-display text-gray-800 tracking-wide">Wander<span
+                            class="text-primary">lust</span></span>
+                </div>
+
+                <!-- Desktop Links -->
+                <div class="hidden md:flex items-center space-x-8 nav-auth-section">
+                    <a href="#" data-nav="search"
+                        class="text-gray-600 hover:text-primary font-medium transition-colors">Destinations</a>
+                    <a href="#" data-nav="about"
+                        class="text-gray-600 hover:text-primary font-medium transition-colors">About</a>
+                    <button data-nav="login"
+                        class="bg-primary hover:bg-primary-dark text-white px-6 py-2 rounded-full font-medium transition-all shadow-lg shadow-teal-500/30">
+                        Sign In
+                    </button>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-gray-600 hover:text-primary focus:outline-none">
+                        <i data-lucide="menu" class="w-7 h-7"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu (Hidden by default) -->
+        <div id="mobile-menu"
+            class="hidden md:hidden bg-white/95 backdrop-blur-xl border-t border-gray-100 absolute w-full left-0 top-20 shadow-xl z-50">
+            <div class="px-4 py-6 space-y-4 flex flex-col mobile-auth-section">
+                <a href="#" data-nav="search"
+                    class="text-lg font-medium text-gray-800 hover:text-primary transition-colors">Destinations</a>
+                <a href="#" data-nav="about"
+                    class="text-lg font-medium text-gray-800 hover:text-primary transition-colors">About</a>
+                <button data-nav="login"
+                    class="bg-primary text-white px-6 py-3 rounded-xl font-medium shadow-lg shadow-teal-500/30 w-full">
+                    Sign In
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- App Container -->
+    <main id="app" class="flex-grow pt-20">
+
+        <!-- View: Home -->
+        <section id="home-view" class="view-section">
+            <!-- Hero Section -->
+            <div class="relative h-screen w-full overflow-hidden flex items-center justify-center">
+                <!-- Background Image (Cinematic/Abstract Travel) -->
+                <div class="absolute inset-0">
+                    <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=2021&q=80"
+                        class="w-full h-full object-cover animate-fade-in scale-105 img-aesthetic" alt="Background">
+                    <div class="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/60"></div>
+                </div>
+
+                <!-- Hero Content -->
+                <div class="relative z-10 text-center px-4 max-w-5xl mx-auto mt-20">
+                    <span
+                        class="inline-block py-2 px-6 rounded-full glass-dark text-white border border-white/20 text-xs tracking-[0.2em] font-medium mb-8 animate-slide-up uppercase">
+                        The Spirit of India
+                    </span>
+                    <h1
+                        class="text-6xl md:text-8xl font-display font-medium text-white mb-8 leading-tight animate-slide-up delay-100 drop-shadow-2xl">
+                        Find Your <br /><span class="italic font-light text-gold">Soul's Journey</span>
+                    </h1>
+                    <p
+                        class="text-xl md:text-2xl text-gray-200 mb-12 max-w-2xl mx-auto animate-slide-up delay-200 font-light">
+                        Curated experiences across the subcontinent. From the Himalayas to the Indian Ocean.
+                    </p>
+
+                    <!-- Hero Search Bar -->
+                    <div
+                        class="glass p-3 rounded-full flex items-center max-w-2xl mx-auto animate-slide-up delay-300 shadow-2xl backdrop-blur-3xl border border-white/40">
+                        <div class="p-3 text-white/70">
+                            <i data-lucide="compass" class="w-6 h-6"></i>
+                        </div>
+                        <input type="text" id="hero-search-input"
+                            placeholder="Search for 'Goa', 'Peace', 'Adventure'..."
+                            class="flex-1 bg-transparent border-none outline-none text-white placeholder-white/60 text-lg px-4 font-light tracking-wide"
+                            autocomplete="off">
+                        <button id="hero-search-btn"
+                            class="bg-white text-primary hover:bg-gray-100 px-8 py-3 rounded-full font-semibold transition-all flex items-center gap-2">
+                            Search
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Featured Section -->
+            <div class="max-w-7xl mx-auto px-4 py-20">
+                <div class="flex justify-between items-end mb-12">
+                    <div>
+                        <h2 class="text-4xl font-bold text-gray-900 mb-2">Trending Destinations</h2>
+                        <div class="h-1 w-20 bg-accent rounded-full"></div>
+                    </div>
+                    <button class="text-primary font-semibold flex items-center gap-1 hover:gap-2 transition-all"
+                        onclick="navigateTo('search')">
+                        View All <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </button>
+                </div>
+
+                <div id="featured-grid" class="grid md:grid-cols-3 gap-8">
+                    <!-- Cards Injected by JS -->
+                    <div class="col-span-3 text-center py-20">Loading...</div>
+                </div>
+            </div>
+
+            <!-- Features Banner -->
+            <div class="bg-gray-900 text-white py-20">
+                <div class="max-w-7xl mx-auto px-4 grid md:grid-cols-3 gap-12 text-center">
+                    <div class="p-6">
+                        <div
+                            class="w-16 h-16 mx-auto bg-gray-800 rounded-full flex items-center justify-center mb-6 text-accent">
+                            <i data-lucide="shield-check" class="w-8 h-8"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Verified Guides</h3>
+                        <p class="text-gray-400">Curated transport options for every destination.</p>
+                    </div>
+                    <div class="p-6">
+                        <div
+                            class="w-16 h-16 mx-auto bg-gray-800 rounded-full flex items-center justify-center mb-6 text-accent">
+                            <i data-lucide="tag" class="w-8 h-8"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Best Prices</h3>
+                        <p class="text-gray-400">Compare flights and trains to find the best deals.</p>
+                    </div>
+                    <div class="p-6">
+                        <div
+                            class="w-16 h-16 mx-auto bg-gray-800 rounded-full flex items-center justify-center mb-6 text-accent">
+                            <i data-lucide="heart" class="w-8 h-8"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Loved by Travelers</h3>
+                        <p class="text-gray-400">Trusted by students and explorers across India.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- View: Search -->
+        <section id="search-view" class="view-section hidden min-h-screen">
+            <div class="bg-primary py-12 px-4 shadow-lg sticky top-20 z-40">
+                <div class="max-w-3xl mx-auto">
+                    <button onclick="goBack()"
+                        class="mb-4 flex items-center gap-2 text-white/80 hover:text-white transition-colors text-sm font-medium">
+                        <i data-lucide="arrow-left" class="w-4 h-4"></i> Back
+                    </button>
+                    <h1 class="text-3xl font-bold text-white mb-6 text-center">Explore All Destinations</h1>
+                    <div class="glass p-2 rounded-xl flex items-center">
+                        <i data-lucide="search" class="w-6 h-6 ml-4 text-gray-500"></i>
+                        <input type="text" id="search-input-main" placeholder="Search for cities, mountains, beaches..."
+                            class="flex-1 bg-transparent border-none outline-none text-gray-800 p-4 text-lg"
+                            autocomplete="off">
+                    </div>
+                </div>
+            </div>
+            <div class="max-w-5xl mx-auto px-4 py-12">
+                <div id="search-results" class="grid gap-6">
+                    <!-- Results Injected by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- View: Destination Details -->
+        <section id="details-view" class="view-section hidden">
+            <div class="max-w-7xl mx-auto px-4 py-8 pb-20">
+                <button onclick="goBack()"
+                    class="mb-6 flex items-center gap-2 text-gray-600 hover:text-primary transition-colors group">
+                    <div
+                        class="bg-white p-2 rounded-full shadow-sm group-hover:shadow-md transition-all group-hover:-translate-x-1">
+                        <i data-lucide="arrow-left" class="w-5 h-5"></i>
+                    </div>
+                    <span class="font-medium">Back</span>
+                </button>
+
+                <div id="details-content">
+                    <!-- content Injected by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- View: About -->
+        <section id="about-view" class="view-section hidden min-h-screen">
+            <div class="relative py-20 bg-primary overflow-hidden">
+                <div
+                    class="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]">
+                </div>
+                <div class="max-w-7xl mx-auto px-4 relative z-10 text-center text-white">
+                    <div class="absolute top-0 left-4">
+                        <button onclick="goBack()"
+                            class="flex items-center gap-2 text-white/80 hover:text-white transition-colors text-sm font-medium">
+                            <i data-lucide="arrow-left" class="w-4 h-4"></i> Back
+                        </button>
+                    </div>
+                    <h1 class="text-5xl md:text-7xl font-bold mb-6 animate-slide-up">Our Mission</h1>
+                    <p class="text-xl max-w-2xl mx-auto opacity-90 animate-slide-up delay-100 font-light">
+                        To simplify travel across India, connecting every soul with their perfect destination through
+                        technology and design.
+                    </p>
+                </div>
+            </div>
+
+            <div class="max-w-6xl mx-auto px-4 py-16">
+                <!-- Story Section -->
+                <div class="grid md:grid-cols-2 gap-12 items-center mb-20">
+                    <div class="space-y-6 animate-on-scroll">
+                        <h2 class="text-4xl font-bold text-gray-800">Bridging Cultures</h2>
+                        <div class="w-20 h-1 bg-accent rounded-full"></div>
+                        <p class="text-lg text-gray-600 leading-relaxed">
+                            Wanderlust wasn't just built as a project; it was crafted as a gateway. India is a land of a
+                            million stories, and we wanted to create a platform that helps you read them all.
+                        </p>
+                        <p class="text-lg text-gray-600 leading-relaxed">
+                            From the snowy peaks of Ladakh to the tropical backwaters of Kerala, our goal is to provide
+                            accurate, curated, and beautiful travel guides for every type of traveler.
+                        </p>
+                    </div>
+                    <div
+                        class="glass p-4 rounded-3xl transform rotate-2 hover:rotate-0 transition-transform duration-500 animate-on-scroll">
+                        <img src="https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=800&q=80"
+                            class="rounded-2xl w-full h-[400px] object-cover" alt="India Culture">
+                    </div>
+                </div>
+
+                <!-- Team / Stats -->
+                <div class="grid md:grid-cols-3 gap-8 mb-20">
+                    <div class="glass p-8 rounded-2xl text-center animate-on-scroll">
+                        <div class="text-5xl font-bold text-primary mb-2">25+</div>
+                        <div class="text-gray-500 font-medium uppercase tracking-widest">Cities Covered</div>
+                    </div>
+                    <div class="glass p-8 rounded-2xl text-center animate-on-scroll">
+                        <div class="text-5xl font-bold text-accent mb-2">10k+</div>
+                        <div class="text-gray-500 font-medium uppercase tracking-widest">Happy Travelers</div>
+                    </div>
+                    <div class="glass p-8 rounded-2xl text-center animate-on-scroll">
+                        <div class="text-5xl font-bold text-gray-800 mb-2">100%</div>
+                        <div class="text-gray-500 font-medium uppercase tracking-widest">Free to Use</div>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="glass p-8 md:p-12 rounded-3xl max-w-3xl mx-auto animate-on-scroll relative overflow-hidden">
+                    <div class="relative z-10">
+                        <h2 class="text-3xl font-bold text-center mb-8">Get in Touch</h2>
+                        <form
+                            onsubmit="event.preventDefault(); alert('Thank you for contacting us! We will reply shortly.');"
+                            class="space-y-6">
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Name</label>
+                                    <input type="text"
+                                        class="w-full bg-white/50 border border-gray-200 rounded-xl px-4 py-3 outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
+                                        placeholder="John Doe" required>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                                    <input type="email"
+                                        class="w-full bg-white/50 border border-gray-200 rounded-xl px-4 py-3 outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
+                                        placeholder="john@example.com" required>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Message</label>
+                                <textarea rows="4"
+                                    class="w-full bg-white/50 border border-gray-200 rounded-xl px-4 py-3 outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
+                                    placeholder="How can we help you?" required></textarea>
+                            </div>
+                            <button type="submit"
+                                class="w-full bg-primary hover:bg-primary-dark text-white font-bold py-4 rounded-xl transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                                Send Message
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- View: Login -->
+        <section id="login-view" class="view-section hidden min-h-screen flex items-center justify-center p-4 relative">
+            <div class="absolute inset-0">
+                <img src="https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=2000&q=80"
+                    class="w-full h-full object-cover blur-sm opacity-50 block" alt="Login Background">
+                <div class="absolute inset-0 bg-white/30 backdrop-blur-sm"></div>
+            </div>
+
+            <div class="glass p-8 md:p-12 rounded-3xl w-full max-w-md relative z-10 shadow-2xl animate-slide-up">
+                <div class="text-center mb-10">
+                    <div class="inline-flex items-center gap-2 mb-4">
+                        <div class="bg-primary p-2 rounded-lg text-white">
+                            <i data-lucide="compass" class="w-6 h-6"></i>
+                        </div>
+                        <span class="text-2xl font-bold font-display text-gray-800">Wander<span
+                                class="text-primary">lust</span></span>
+                    </div>
+                    <h2 class="text-2xl font-bold text-gray-800">Welcome Back</h2>
+                    <p class="text-gray-500">Sign in to access your saved trips</p>
+                </div>
+
+                <form id="login-form" class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
+                        <div class="relative">
+                            <i data-lucide="mail" class="absolute left-4 top-3.5 w-5 h-5 text-gray-400"></i>
+                            <input type="email" id="login-email"
+                                class="w-full bg-white/80 border border-gray-200 rounded-xl pl-12 pr-4 py-3 outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
+                                placeholder="user@example.com" required>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Password</label>
+                        <div class="relative">
+                            <i data-lucide="lock" class="absolute left-4 top-3.5 w-5 h-5 text-gray-400"></i>
+                            <input type="password" id="login-password"
+                                class="w-full bg-white/80 border border-gray-200 rounded-xl pl-12 pr-4 py-3 outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
+                                placeholder="••••••••" required>
+                        </div>
+                    </div>
+
+                    <button type="submit"
+                        class="w-full bg-primary hover:bg-primary-dark text-white font-bold py-3.5 rounded-xl transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1 flex items-center justify-center gap-2">
+                        Sign In <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                    </button>
+
+                    <p class="text-center text-sm text-gray-500 mt-6">
+                        Don't have an account? <a href="#" data-nav="signup"
+                            class="text-primary font-bold hover:underline">Sign up</a>
+                    </p>
+                </form>
+            </div>
+        </section>
+
+        <!-- View: Sign Up -->
+        <section id="signup-view"
+            class="view-section hidden min-h-screen flex items-center justify-center p-4 relative">
+            <div class="absolute inset-0">
+                <img src="https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=2000&q=80"
+                    class="w-full h-full object-cover blur-sm opacity-50 block" alt="Login Background">
+                <div class="absolute inset-0 bg-white/30 backdrop-blur-sm"></div>
+            </div>
+
+            <div class="glass p-8 md:p-12 rounded-3xl w-full max-w-md relative z-10 shadow-2xl animate-slide-up">
+                <div class="text-center mb-10">
+                    <div class="inline-flex items-center gap-2 mb-4">
+                        <div class="bg-primary p-2 rounded-lg text-white">
+                            <i data-lucide="compass" class="w-6 h-6"></i>
+                        </div>
+                        <span class="text-2xl font-bold font-display text-gray-800">Wander<span
+                                class="text-primary">lust</span></span>
+                    </div>
+                    <h2 class="text-2xl font-bold text-gray-800">Create Account</h2>
+                    <p class="text-gray-500">Join our community of travelers</p>
+                </div>
+
+                <form id="signup-form" class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
+                        <div class="relative">
+                            <i data-lucide="user" class="absolute left-4 top-3.5 w-5 h-5 text-gray-400"></i>
+                            <input type="text" id="signup-name"
+                                class="w-full bg-white/80 border border-gray-200 rounded-xl pl-12 pr-4 py-3 outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
+                                placeholder="John Doe" required>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
+                        <div class="relative">
+                            <i data-lucide="mail" class="absolute left-4 top-3.5 w-5 h-5 text-gray-400"></i>
+                            <input type="email" id="signup-email"
+                                class="w-full bg-white/80 border border-gray-200 rounded-xl pl-12 pr-4 py-3 outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
+                                placeholder="user@example.com" required>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Password</label>
+                        <div class="relative">
+                            <i data-lucide="lock" class="absolute left-4 top-3.5 w-5 h-5 text-gray-400"></i>
+                            <input type="password" id="signup-password"
+                                class="w-full bg-white/80 border border-gray-200 rounded-xl pl-12 pr-4 py-3 outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
+                                placeholder="••••••••" required>
+                        </div>
+                    </div>
+
+                    <button type="submit"
+                        class="w-full bg-primary hover:bg-primary-dark text-white font-bold py-3.5 rounded-xl transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1 flex items-center justify-center gap-2">
+                        Create Account <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                    </button>
+
+                    <p class="text-center text-sm text-gray-500 mt-6">
+                        Already have an account? <a href="#" data-nav="login"
+                            class="text-primary font-bold hover:underline">Sign In</a>
+                    </p>
+                </form>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 py-12">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <span class="text-xl font-bold font-display text-gray-800">Wander<span
+                            class="text-primary">lust</span></span>
+                    <p class="text-gray-500 text-sm mt-2">© 2026 Incredible India Project. All rights reserved.</p>
+                </div>
+                <div class="flex space-x-6 text-gray-500">
+                    <a href="#" class="hover:text-primary transition-colors"><i data-lucide="instagram"
+                            class="w-5 h-5"></i></a>
+                    <a href="#" class="hover:text-primary transition-colors"><i data-lucide="twitter"
+                            class="w-5 h-5"></i></a>
+                    <a href="#" class="hover:text-primary transition-colors"><i data-lucide="facebook"
+                            class="w-5 h-5"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Logic -->
+    <script src="script.js"></script>
+</body>
+
+</html>
