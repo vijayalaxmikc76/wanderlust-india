@@ -1,6 +1,6 @@
 🌍 Wanderlust – India
 
-Wanderlust is a responsive travel website designed to help users explore and discover travel destinations easily. The website provides an intuitive interface where users can browse destinations and search for places of interest using a destination search feature. This project focuses on front-end web development concepts and user-friendly design.
+Wanderlust is a responsive travel website designed to help users explore and discover travel destinations easily. The website provides an intuitive interface where users can browse destinations and search for places of interest using a destination search feature.This project focuses on front-end web development concepts and user-friendly design.
 
 🔧 Features
 
