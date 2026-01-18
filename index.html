@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -10,6 +10,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
@@ -43,15 +44,15 @@
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 
-<body class="bg-gray-50 min-h-screen flex flex-col">
+<body class="min-h-screen flex flex-col transition-colors duration-300">
 
     <!-- Navbar -->
-    <nav class="fixed top-0 w-full z-50 glass transition-all duration-300">
+    <nav class="fixed top-0 w-full z-50 glass transition-all duration-300 border-b border-white/20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-20 items-center">
                 <!-- Logo -->
-                <div class="flex items-center gap-2 cursor-pointer" onclick="navigateTo('home')">
-                    <img src="logo.png" alt="Wanderlust Logo" class="h-12 w-auto object-contain">
+                <div class="flex items-center gap-2 cursor-pointer group" onclick="navigateTo('home')">
+                    <img src="logo_v2.png" alt="Wanderlust India" class="h-16 w-16 bg-white rounded-full object-contain p-1 border-2 border-primary/20 transition-transform duration-300 group-hover:scale-105 drop-shadow-md">
                 </div>
 
                 <!-- Desktop Links -->
@@ -60,9 +61,9 @@
                          <i data-lucide="moon" class="w-5 h-5 text-gray-600 dark:text-gray-300"></i>
                     </button>
                     <a href="#" data-nav="search"
-                        class="text-gray-600 hover:text-primary font-medium transition-colors">Favorites</a>
+                        class="text-gray-600 dark:text-gray-300 hover:text-primary font-medium transition-colors">Favourites</a>
                     <a href="#" data-nav="about"
-                        class="text-gray-600 hover:text-primary font-medium transition-colors">About</a>
+                        class="text-gray-600 dark:text-gray-300 hover:text-primary font-medium transition-colors">About</a>
                     <button data-nav="login"
                         class="bg-primary hover:bg-primary-dark text-white px-6 py-2 rounded-full font-medium transition-all shadow-lg shadow-teal-500/30">
                         Sign In
@@ -71,7 +72,7 @@
 
                 <!-- Mobile Menu Button -->
                 <div class="md:hidden">
-                    <button id="mobile-menu-btn" class="text-gray-600 hover:text-primary focus:outline-none">
+                    <button id="mobile-menu-btn" class="text-gray-600 dark:text-gray-300 hover:text-primary focus:outline-none">
                         <i data-lucide="menu" class="w-7 h-7"></i>
                     </button>
                 </div>
@@ -80,16 +81,9 @@
 
         <!-- Mobile Menu (Hidden by default) -->
         <div id="mobile-menu"
-            class="hidden md:hidden bg-white/95 backdrop-blur-xl border-t border-gray-100 absolute w-full left-0 top-20 shadow-xl z-50">
+            class="hidden md:hidden bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl border-t border-gray-100 dark:border-gray-800 absolute w-full left-0 top-20 shadow-xl z-50 transition-all duration-300">
             <div class="px-4 py-6 space-y-4 flex flex-col mobile-auth-section">
-                <a href="#" data-nav="search"
-                    class="text-lg font-medium text-gray-800 hover:text-primary transition-colors">Destinations</a>
-                <a href="#" data-nav="about"
-                    class="text-lg font-medium text-gray-800 hover:text-primary transition-colors">About</a>
-                <button data-nav="login"
-                    class="bg-primary text-white px-6 py-3 rounded-xl font-medium shadow-lg shadow-teal-500/30 w-full">
-                    Sign In
-                </button>
+                <!-- Auth content injected by JS -->
             </div>
         </div>
     </nav>
@@ -101,40 +95,55 @@
         <section id="home-view" class="view-section">
             <!-- Hero Section -->
             <div class="relative h-screen w-full overflow-hidden flex items-center justify-center">
-                <!-- Background Image (Cinematic/Abstract Travel) -->
-                <div class="absolute inset-0">
-                    <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=2021&q=80"
-                        class="w-full h-full object-cover animate-fade-in scale-105 img-aesthetic" alt="Background">
-                    <div class="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/60"></div>
+                <!-- Slideshow Background -->
+                <div class="absolute inset-0 z-0">
+                    <div class="slideshow-container w-full h-full">
+                         <!-- Slide 1 -->
+                        <div class="slide absolute inset-0 opacity-0 transition-opacity duration-1000 ease-in-out active">
+                            <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=2021&q=80"
+                                class="w-full h-full object-cover scale-105 animate-slow-zoom" alt="Travel India">
+                        </div>
+                        <!-- Slide 2 -->
+                        <div class="slide absolute inset-0 opacity-0 transition-opacity duration-1000 ease-in-out">
+                            <img src="https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=2000&q=80"
+                                class="w-full h-full object-cover scale-105 animate-slow-zoom" alt="Taj Mahal">
+                        </div>
+                        <!-- Slide 3 -->
+                        <div class="slide absolute inset-0 opacity-0 transition-opacity duration-1000 ease-in-out">
+                             <img src="https://images.unsplash.com/photo-1598324789736-4861f89564a0?auto=format&fit=crop&w=2000&q=80"
+                                class="w-full h-full object-cover scale-105 animate-slow-zoom" alt="Himalayas">
+                        </div>
+                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-b from-black/50 via-black/20 to-black/70 z-10 transition-colors duration-500"></div>
                 </div>
 
                 <!-- Hero Content -->
-                <div class="relative z-10 text-center px-4 max-w-5xl mx-auto mt-20">
+                <div class="relative z-20 text-center px-4 max-w-5xl mx-auto flex flex-col items-center">
                     <span
-                        class="inline-block py-2 px-6 rounded-full glass-dark text-white border border-white/20 text-xs tracking-[0.2em] font-medium mb-8 animate-slide-up uppercase">
+                        class="inline-block py-2 px-6 rounded-full glass-dark text-white border border-white/20 text-xs tracking-[0.3em] font-medium mb-6 animate-slide-up uppercase shadow-lg backdrop-blur-md">
                         The Spirit of India
                     </span>
                     <h1
-                        class="text-4xl md:text-8xl font-display font-medium text-white mb-8 leading-tight animate-slide-up delay-100 drop-shadow-2xl">
-                        Find Your <br /><span class="italic font-light text-gold">Soul's Journey</span>
+                        class="text-5xl md:text-8xl font-display font-medium text-white mb-8 leading-tight animate-slide-up delay-100 drop-shadow-2xl tracking-tight">
+                        Find Your <br /><span class="italic font-light text-accent playfair">Soul's Journey</span>
                     </h1>
                     <p
-                        class="text-xl md:text-2xl text-gray-200 mb-12 max-w-2xl mx-auto animate-slide-up delay-200 font-light">
+                        class="text-xl md:text-2xl text-gray-100 mb-10 max-w-2xl mx-auto animate-slide-up delay-200 font-light leading-relaxed drop-shadow-md">
                         Curated experiences across the subcontinent. From the Himalayas to the Indian Ocean.
                     </p>
 
                     <!-- Hero Search Bar -->
                     <div
-                        class="bg-white/95 p-2 rounded-full flex items-center max-w-2xl mx-auto animate-slide-up delay-300 shadow-2xl backdrop-blur-xl border border-white/40 mt-12 dark:bg-gray-800/90 dark:border-gray-700">
-                        <div class="p-4 text-primary">
+                        class="w-full max-w-2xl bg-white/10 backdrop-blur-xl p-2 rounded-full flex items-center animate-slide-up delay-300 shadow-2xl border border-white/30 hover:bg-white/20 transition-all duration-300 group">
+                        <div class="pl-6 pr-4 text-white group-hover:text-accent transition-colors">
                             <i data-lucide="map-pin" class="w-6 h-6"></i>
                         </div>
                         <input type="text" id="hero-search-input"
-                            placeholder="Where to next? (e.g. Jaipur, Ooty...)"
-                            class="flex-1 bg-transparent border-none outline-none text-gray-800 dark:text-white placeholder-gray-500 text-lg px-2 font-medium tracking-wide"
+                            placeholder="Where would you like to go?"
+                            class="flex-1 bg-transparent border-none outline-none text-white placeholder-gray-200 text-lg px-2 font-medium tracking-wide h-12"
                             autocomplete="off" onkeydown="if(event.key === 'Enter') handleHeroSearch()">
                         <button id="hero-search-btn"
-                            class="bg-primary text-white hover:bg-primary-dark px-8 py-3 rounded-full font-bold transition-all flex items-center gap-2 shadow-lg" onclick="handleHeroSearch()">
+                            class="bg-accent hover:bg-white hover:text-accent text-white px-8 py-3.5 rounded-full font-bold transition-all shadow-lg transform active:scale-95" onclick="handleHeroSearch()">
                             Search
                         </button>
                     </div>
@@ -145,7 +154,7 @@
             <div class="max-w-7xl mx-auto px-4 py-20">
                 <div class="flex justify-between items-end mb-12">
                     <div>
-                        <h2 class="text-4xl font-bold text-gray-900 mb-2">Trending Destinations</h2>
+                        <h2 class="text-4xl font-bold text-gray-900 dark:text-white mb-2">Trending Destinations</h2>
                         <div class="h-1 w-20 bg-accent rounded-full"></div>
                     </div>
                     <button class="text-primary font-semibold flex items-center gap-1 hover:gap-2 transition-all"
@@ -191,25 +200,24 @@
             </div>
         </section>
 
-        <!-- View: Search -->
-        <section id="search-view" class="view-section hidden min-h-screen">
-            <div class="bg-primary py-12 px-4 shadow-lg sticky top-20 z-40">
-                <div class="max-w-3xl mx-auto">
-                    <button onclick="goBack()"
-                        class="mb-4 flex items-center gap-2 text-white/80 hover:text-white transition-colors text-sm font-medium">
-                        <i data-lucide="arrow-left" class="w-4 h-4"></i> Back
-                    </button>
-                    <h1 class="text-3xl font-bold text-white mb-6 text-center">Explore All Destinations</h1>
-                    <div class="glass p-2 rounded-xl flex items-center">
-                        <i data-lucide="search" class="w-6 h-6 ml-4 text-gray-500"></i>
-                        <input type="text" id="search-input-main" placeholder="Search for cities, mountains, beaches..."
-                            class="flex-1 bg-transparent border-none outline-none text-gray-800 p-4 text-lg"
+        <!-- View: Favorites / Search -->
+        <section id="search-view" class="view-section hidden min-h-screen pb-20">
+             <!-- Compact Floating Header -->
+            <div class="sticky top-20 z-40 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-100 dark:border-gray-800 transition-all duration-300">
+                <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col md:flex-row gap-4 items-center justify-between">
+                    <div class="hidden"></div>
+                    
+                    <div class="w-full md:w-96 relative">
+                         <input type="text" id="search-input-main" placeholder="Filter or Search new places..."
+                            class="w-full bg-gray-100 dark:bg-gray-800 border-none outline-none text-gray-800 dark:text-white rounded-full py-2.5 pl-10 pr-4 text-sm font-medium focus:ring-2 focus:ring-primary/50 transition-all shadow-inner"
                             autocomplete="off">
+                        <i data-lucide="search" class="w-4 h-4 absolute left-3.5 top-3 text-gray-500"></i>
                     </div>
                 </div>
             </div>
-            <div class="max-w-5xl mx-auto px-4 py-12">
-                <div id="search-results" class="grid gap-6">
+
+            <div class="max-w-7xl mx-auto px-4 py-8">
+                <div id="search-results" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <!-- Results Injected by JS -->
                 </div>
             </div>
@@ -471,6 +479,8 @@
     </footer>
 
     <!-- Logic -->
+    <script src="database.js"></script>
+    <script src="auth.js"></script>
     <script src="script.js"></script>
 </body>
 

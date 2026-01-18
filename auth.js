@@ -84,3 +84,15 @@ class AuthService {
 }
 
 const auth = new AuthService();
+
+// Developer Tool: View Users
+window.devShowUsers = function() {
+    if (typeof db !== 'undefined') {
+        const users = db.getUsers();
+        console.table(users);
+        console.log("Total Users:", users.length);
+        alert(`Check Console for ${users.length} registered users.`);
+    } else {
+        console.error("Database not initialized.");
+    }
+};
