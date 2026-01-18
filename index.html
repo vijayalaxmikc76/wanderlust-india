@@ -51,17 +51,16 @@
             <div class="flex justify-between h-20 items-center">
                 <!-- Logo -->
                 <div class="flex items-center gap-2 cursor-pointer" onclick="navigateTo('home')">
-                    <div class="bg-gradient-to-tr from-orange-500 to-yellow-500 p-2 rounded-lg text-white">
-                        <i data-lucide="compass" class="w-6 h-6"></i>
-                    </div>
-                    <span class="text-2xl font-bold font-display text-gray-800 tracking-wide">Wander<span
-                            class="text-primary">lust</span></span>
+                    <img src="logo.png" alt="Wanderlust Logo" class="h-12 w-auto object-contain">
                 </div>
 
                 <!-- Desktop Links -->
                 <div class="hidden md:flex items-center space-x-8 nav-auth-section">
+                    <button onclick="toggleDarkMode()" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" title="Toggle Dark Mode">
+                         <i data-lucide="moon" class="w-5 h-5 text-gray-600 dark:text-gray-300"></i>
+                    </button>
                     <a href="#" data-nav="search"
-                        class="text-gray-600 hover:text-primary font-medium transition-colors">Destinations</a>
+                        class="text-gray-600 hover:text-primary font-medium transition-colors">Favorites</a>
                     <a href="#" data-nav="about"
                         class="text-gray-600 hover:text-primary font-medium transition-colors">About</a>
                     <button data-nav="login"
@@ -116,7 +115,7 @@
                         The Spirit of India
                     </span>
                     <h1
-                        class="text-6xl md:text-8xl font-display font-medium text-white mb-8 leading-tight animate-slide-up delay-100 drop-shadow-2xl">
+                        class="text-4xl md:text-8xl font-display font-medium text-white mb-8 leading-tight animate-slide-up delay-100 drop-shadow-2xl">
                         Find Your <br /><span class="italic font-light text-gold">Soul's Journey</span>
                     </h1>
                     <p
@@ -126,16 +125,16 @@
 
                     <!-- Hero Search Bar -->
                     <div
-                        class="glass p-3 rounded-full flex items-center max-w-2xl mx-auto animate-slide-up delay-300 shadow-2xl backdrop-blur-3xl border border-white/40">
-                        <div class="p-3 text-white/70">
-                            <i data-lucide="compass" class="w-6 h-6"></i>
+                        class="bg-white/95 p-2 rounded-full flex items-center max-w-2xl mx-auto animate-slide-up delay-300 shadow-2xl backdrop-blur-xl border border-white/40 mt-12 dark:bg-gray-800/90 dark:border-gray-700">
+                        <div class="p-4 text-primary">
+                            <i data-lucide="map-pin" class="w-6 h-6"></i>
                         </div>
                         <input type="text" id="hero-search-input"
-                            placeholder="Search for 'Goa', 'Peace', 'Adventure'..."
-                            class="flex-1 bg-transparent border-none outline-none text-white placeholder-white/60 text-lg px-4 font-light tracking-wide"
-                            autocomplete="off">
+                            placeholder="Where to next? (e.g. Jaipur, Ooty...)"
+                            class="flex-1 bg-transparent border-none outline-none text-gray-800 dark:text-white placeholder-gray-500 text-lg px-2 font-medium tracking-wide"
+                            autocomplete="off" onkeydown="if(event.key === 'Enter') handleHeroSearch()">
                         <button id="hero-search-btn"
-                            class="bg-white text-primary hover:bg-gray-100 px-8 py-3 rounded-full font-semibold transition-all flex items-center gap-2">
+                            class="bg-primary text-white hover:bg-primary-dark px-8 py-3 rounded-full font-bold transition-all flex items-center gap-2 shadow-lg" onclick="handleHeroSearch()">
                             Search
                         </button>
                     </div>
