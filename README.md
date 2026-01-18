@@ -1,34 +1,50 @@
-🌍 Wanderlust – India
+# 🌍 Wanderlust India - Premium Travel Guide
 
-Wanderlust is a responsive travel website designed to help users explore and discover travel destinations easily. The website provides an intuitive interface where users can browse destinations and search for places of interest using a destination search feature.This project focuses on front-end web development concepts and user-friendly design.
+Wanderlust India is a responsive, visually immersive travel website designed to help users explore and discover India's most breathtaking destinations. Featuring a modern interface, real-time search, and a curated list of premium locations.
 
-🔧 Features
+![Wanderlust India Home](screenshots/home.png)
 
-Interactive and responsive travel website layout
+## ✨ Features
 
-Destination listing with details such as place name and description
+- **Responsive Design**: Seamless experience across desktop, tablet, and mobile devices.
+- **Interactive Search**: Filter destinations instantly by name (e.g., "Taj Mahal", "Goa").
+- **Dynamic Content**: Beautiful cards showcasing destinations with high-quality images and descriptions.
+- **Modern UI/UX**: Clean typography, smooth transitions, and an engaging layout.
 
-Search bar to filter destinations based on user input
+## 🛠️ Tech Stack
 
-Case-insensitive and partial search functionality
+- **HTML5**: Semantic structure.
+- **CSS3**: Custom styling, flexbox/grid layouts, and responsive media queries.
+- **JavaScript**: Dynamic DOM manipulation and search logic.
 
-Clean and simple UI suitable for all screen sizes
+## 🚀 Getting Started
 
-🛠️ Technologies Used
+1.  Clone the repository or download the source code.
+2.  Open the project directory.
+3.  Open `index.html` in your preferred web browser to launch the application.
 
-HTML5 – Structure of the website
+## 📂 Project Structure
 
-CSS3 – Styling and responsive design
+```text
+my-project/
+├── index.html       # Main HTML file
+├── styles.css       # Global styles
+├── script.js        # Search and interaction logic
+├── auth.js          # Authentication logic
+├── database.js      # Data source for destinations
+├── screenshots/     # Project screenshots
+└── README.md        # Project documentation
+```
 
-JavaScript – Dynamic behavior and search functionality
+## 🎯 Project Objective
 
-🎯 Project Objective
+To demonstrate practical implementation of front-end web development concepts including:
 
-The main objective of the Wanderlust website is to demonstrate practical implementation of web development concepts such as UI design, DOM manipulation, and JavaScript-based search functionality in a real-world travel website scenario.
+- Responsive UI Design
+- DOM Manipulation
+- Event Handling
+- Search Algorithms
 
-📸 Output
+---
 
-Output screenshots demonstrating the working of the website and destination search functionality are included for reference.
-<img width="1870" height="906" alt="op" src="https://github.com/user-attachments/assets/fdf792bf-abd6-4d00-a892-93e1bcac626a" />
-![op3](https://github.com/user-attachments/assets/13e0765d-6985-488c-815a-9b5ce70ec8cd)
-
+_Developed for the Wanderlust Project_
